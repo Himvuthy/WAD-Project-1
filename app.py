@@ -1,12 +1,14 @@
 import streamlit as st
 import pandas as pd
 
+#7. Update page configuration
 st.set_page_config(
     page_title="EduRisk Analytics - Lab 02",
     page_icon="🎓",
     layout="wide"
 )
 
+#8. Update the student dataset
 student_df = pd.DataFrame({
     "Student Name": ["Dara", "Sophea", "Vuthy", "Malis", "Rithy", "Sreyneang", "Chan", "Bopha"],
     "Course": ["Python", "Statistics", "Python", "Database", "Web App", "Database", "Python", "Statistics"],
@@ -15,7 +17,7 @@ student_df = pd.DataFrame({
     "Study Hours": [12, 8, 3, 15, 5, 14, 9, 7]
 })
 
-
+#9. Add risk level function
 def get_risk_level(score, attendance):
     if score < 60 or attendance < 60:
         return "High Risk"
@@ -24,12 +26,13 @@ def get_risk_level(score, attendance):
     else:
         return "Low Risk"
 
-
+#10. Add risk level column
 student_df["Risk Level"] = student_df.apply(
     lambda row: get_risk_level(row["Score"], row["Attendance"]),
     axis=1
 )
 
+#11. Update sidebar navigation
 with st.sidebar:
     st.title("EduRisk Menu")
     selected_page = st.radio(
@@ -37,6 +40,7 @@ with st.sidebar:
         ["Home", "Dashboard", "Student Data", "Risk Checker", "About"]
     )
 
+#12. Update homepage
 if selected_page == "Home":
     st.title("🎓 EduRisk Analytics")
     st.subheader("Interactive Student Risk Monitoring Dashboard")
@@ -44,20 +48,24 @@ if selected_page == "Home":
     st.write("In this lab, you will use Streamlit widgets to explore student performance data.")
     st.success("Lab 02 app is running successfully!")
 
+#13. Create the dashboard page
 elif selected_page == "Dashboard":
     st.title("Interactive Dashboard")
     st.write("Use the filters below to explore student performance.")
 
+    #14. Add Course Filter
     selected_course = st.selectbox(
         "Select Course",
         ["All"] + list(student_df["Course"].unique())
     )
 
+    #15. Add Risk Level Filter
     selected_risk = st.selectbox(
         "Select Risk Level",
         ["All", "Low Risk", "Medium Risk", "High Risk"]
     )
 
+    #16. Add Minimum Attendance Slider
     min_attendance = st.slider(
         "Minimum Attendance",
         0,
@@ -65,6 +73,7 @@ elif selected_page == "Dashboard":
         0
     )
 
+    #17. Add Minimum Score Slider
     min_score = st.slider(
         "Minimum Score",
         0,
@@ -72,6 +81,7 @@ elif selected_page == "Dashboard":
         0
     )
 
+    #18. Add Filtering Logic
     filtered_df = student_df.copy()
 
     if selected_course != "All":
@@ -83,6 +93,7 @@ elif selected_page == "Dashboard":
     filtered_df = filtered_df[filtered_df["Attendance"] >= min_attendance]
     filtered_df = filtered_df[filtered_df["Score"] >= min_score]
 
+    #19. Add Dashboard Metrics
     total_students = len(filtered_df)
 
     if len(filtered_df) > 0:
@@ -112,12 +123,14 @@ elif selected_page == "Dashboard":
     with col4:
         st.metric("High Risk", high_risk_students)
 
+    #20. Add Show or Hide Dataset Checkbox
     show_data = st.checkbox("Show Filtered Dataset", True)
 
     if show_data:
         st.subheader("Filtered Student Dataset")
         st.dataframe(filtered_df)
 
+        #21. Add Download Button
         csv = filtered_df.to_csv(index=False)
         st.download_button(
             label="Download Filtered Data",
@@ -128,6 +141,7 @@ elif selected_page == "Dashboard":
     else:
         st.info("Filtered dataset is hidden.")
 
+    #22. Add Student Score Chart
     st.subheader("Charts")
 
     chart_col1, chart_col2 = st.columns(2)
@@ -141,6 +155,7 @@ elif selected_page == "Dashboard":
         else:
             st.warning("No data available for score chart.")
 
+    #23. Add Risk Level Count Chart
     with chart_col2:
         st.write("Risk Level Count")
 
@@ -150,6 +165,7 @@ elif selected_page == "Dashboard":
         else:
             st.warning("No data available for risk chart.")
 
+#24. Update the Student Data Page
 elif selected_page == "Student Data":
     st.title("Student Data")
 
@@ -177,6 +193,7 @@ elif selected_page == "Student Data":
     st.subheader("Full Student Dataset")
     st.dataframe(student_df)
 
+#25. Create the Risk Checker Page
 elif selected_page == "Risk Checker":
     st.title("Single Student Risk Checker")
 
@@ -200,6 +217,7 @@ elif selected_page == "Risk Checker":
         else:
             st.error("Risk Level: High Risk")
 
+#26. Update the About Page
 else:
     st.title("About")
     st.write("This app is part of Lab 02.")
