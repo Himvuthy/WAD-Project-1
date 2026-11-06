@@ -45,5 +45,7 @@ streamlit run app.py
 ## Student Information
 
 Name:
+
 Student ID:
+
 Class:
