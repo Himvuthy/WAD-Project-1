@@ -1,4 +1,4 @@
-# Lab 04: Forms, Validation, and Session State
+# Lab 05: Visualization and Interactivity
 
 ## Project Theme
 
@@ -6,9 +6,7 @@ EduRisk Analytics
 
 ## Description
 
-This Streamlit app is a student academic monitoring prototype. It continues
-from Lab 03 and improves the Risk Checker using forms, input validation, and
-session state. Student data loads from `students.csv` using Pandas.
+This is my first Streamlit web app.
 
 ## Features
 
@@ -24,47 +22,25 @@ session state. Student data loads from `students.csv` using Pandas.
 - Temporary session history displayed in Recent Risk Checks
 - Clear History button that immediately empties the table
 - Ethics reminders for responsible academic support
-
-Risk history lasts for the current Streamlit session. It is not saved to
-`students.csv`. A score or attendance below 60 means High Risk; otherwise, a
-value below 75 means Medium Risk. All other cases are Low Risk.
+- Course, risk level, minimum score, and minimum attendance filters
+- Filtered metrics and CSV downloads
+- Grouped course summaries: student count, average score, attendance, and study hours
+- Risk level summary table
+- Streamlit charts for student scores and course counts
+- Interactive Plotly charts for risk distribution and scores by risk level
+- Clear warnings and safe metrics when filters return no students
 
 ## Tools Used
 
 - Python
 - Streamlit
 - Pandas
+- Plotly
 - VS Code
 
 ## How to Run
 
-From the folder containing `app.py`, using your existing virtual environment:
-
-```bash
-pip install -r requirements.txt
 streamlit run app.py
-```
-
-## Required Files
-
-- `app.py`
-- `students.csv`
-- `requirements.txt`
-- `README.md`
-
-## Lab 04 Checks
-
-Submit an empty or whitespace-only name: a warning appears and history stays
-unchanged. Submit Student A (90, 95), Student B (70, 80), Student C (50, 85),
-and Student D (80, 55): the results should be Low, Medium, High, and High Risk.
-Visit another page and return to confirm history remains. Clear History should
-show both the confirmation and “No risk checks yet.”
-
-## Submission
-
-Include only the four required files in `studentid_name_lab04.zip`, replacing
-the placeholders with your information. Exclude `.venv/`, `__pycache__/`, and
-downloaded `filtered_student_data.csv` files.
 
 ## Student Information
 
